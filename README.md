@@ -45,6 +45,8 @@ subscribers, and email campaigns with JWT authentication.
 ## API Documentation
 Once running, visit: http://localhost:8080/swagger-ui.html
 
+Swagger Public: https://guvi-newsletter-campaign-mgr.onrender.com/swagger-ui.html
+
 ## API Endpoints
 
 ### Auth
