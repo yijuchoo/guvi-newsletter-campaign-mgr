@@ -47,6 +47,8 @@ Once running, visit: http://localhost:8080/swagger-ui.html
 
 Swagger Public: https://guvi-newsletter-campaign-mgr.onrender.com/swagger-ui.html
 
+Postman API: https://documenter.getpostman.com/view/30937434/2sBXqCP41g
+
 ## API Endpoints
 
 ### Auth
