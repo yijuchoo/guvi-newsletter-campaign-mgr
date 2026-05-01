@@ -24,14 +24,14 @@ public class MailingListController {
     @PostMapping
     public ResponseEntity<MailingListResponse> createMailingList(
             @Valid @RequestBody MailingListRequest request) {
-        return ResponseEntity.status(HttpStatus.CREATED)
+        return ResponseEntity.status(HttpStatus.CREATED) // 201
                 .body(mailingListService.createMailingList(request));
     }
 
     // GET /api/mailing-lists
     @GetMapping
     public ResponseEntity<List<MailingListResponse>> getAllMailingLists() {
-        return ResponseEntity.ok(mailingListService.getAllMailingLists());
+        return ResponseEntity.ok(mailingListService.getAllMailingLists()); // 200 + body
     }
 
     // GET /api/mailing-lists/{id}
