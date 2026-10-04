@@ -7,7 +7,7 @@ subscribers, and email campaigns with JWT authentication.
 - Java 17
 - Spring Boot 4.x
 - Spring Security + JWT
-- MySQL + Spring Data JPA + Hibernate
+- PostgreSQL (hosted on Neon) + Spring Data JPA + Hibernate
 - Swagger / OpenAPI
 
 ## Features
@@ -24,23 +24,43 @@ subscribers, and email campaigns with JWT authentication.
 ### Prerequisites
 - Java 17
 - Maven
-- MySQL
+- A free [Neon](https://neon.tech) account (serverless PostgreSQL)
 
 ### Setup
 
 1. Clone the repository
+```bash
    git clone https://github.com/yijuchoo/guvi-newsletter-campaign-mgr.git
-   cd newsletter-campaign-mgr
+   cd guvi-newsletter-campaign-mgr
+```
 
-2. Create the database
-   CREATE DATABASE newsletter_db;
+2. Create a Neon database
+   - Create a project in the [Neon Console](https://console.neon.tech). A database (`neondb`) is created by default.
+   - Click **Connect** and copy the connection details (host, database, username, password).
 
 3. Configure properties
+```bash
    cp src/main/resources/application.properties.example src/main/resources/application.properties
-   Then edit application.properties with your MySQL credentials and JWT secret.
+```
+Fill in your Neon credentials and JWT secret. Neon shows a `postgresql://...` URI, but Spring Boot needs the JDBC format, with the username and password set separately:
+```properties
+   spring.datasource.url=jdbc:postgresql://<your-neon-host>/neondb?sslmode=require
+   spring.datasource.username=<your-username>
+   spring.datasource.password=<your-password>
+```
+> Never commit `application.properties`. It contains live database credentials.
 
 4. Run the application
+```bash
    mvn spring-boot:run
+```
+
+## Deployment
+The live API is deployed on Render and connects to a Neon PostgreSQL database.
+Database credentials and the JWT secret are supplied via Render environment variables, not committed to the repo.
+
+**Note:** Neon suspends idle databases, and Render's free tier sleeps idle services,
+so the first request after inactivity may take some time to respond.
 
 ## API Documentation
 Once running, visit: http://localhost:8080/swagger-ui.html
